@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AndroidLayouts">
+    <shared>
+      <config />
+    </shared>
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="NONE" />
   </component>
@@ -36,6 +41,9 @@
       </state>
     </system>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="GradleScriptDefinitionsStorage" workingDir="$PROJECT_DIR$" gradleHome="$USER_HOME$/.gradle/wrapper/dists/gradle-9.0.0-bin/d6wjpkvcgsg3oed0qlfss3wgl/gradle-9.0.0" javaHome="$APPLICATION_HOME_DIR$/jbr" gradleVersion="9.0.0" />
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1
@@ -55,6 +63,7 @@
     "RunOnceActivity.readMode.enableVisualFormatting": "true",
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
+    "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/home/adixtin/School/Third/Kotlin/ChatApp"
   }
@@ -142,5 +151,21 @@
       <updated>1774727218953</updated>
     </task>
     <servers />
+  </component>
+  <component name="play_dynamic_filters_status">
+    <option name="appIdToCheckInfo">
+      <map>
+        <entry key="com.chat.app">
+          <value>
+            <CheckInfo lastCheckTimestamp="1774735816533" />
+          </value>
+        </entry>
+        <entry key="com.chat.app.test">
+          <value>
+            <CheckInfo lastCheckTimestamp="1774735816533" />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
