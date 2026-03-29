@@ -1,15 +1,15 @@
-#Sat Mar 28 22:06:52 GMT 2026
-base.0=/home/adixtin/School/Third/Kotlin/ChatApp/app/build/intermediates/dex/debug/mergeExtDexDebug/classes.dex
-base.1=/home/adixtin/School/Third/Kotlin/ChatApp/app/build/intermediates/dex/debug/mergeProjectDexDebug/0/classes.dex
-base.10=/home/adixtin/School/Third/Kotlin/ChatApp/app/build/intermediates/dex/debug/mergeExtDexDebug/classes3.dex
-base.2=/home/adixtin/School/Third/Kotlin/ChatApp/app/build/intermediates/dex/debug/mergeProjectDexDebug/1/classes.dex
-base.3=/home/adixtin/School/Third/Kotlin/ChatApp/app/build/intermediates/dex/debug/mergeProjectDexDebug/10/classes.dex
-base.4=/home/adixtin/School/Third/Kotlin/ChatApp/app/build/intermediates/dex/debug/mergeProjectDexDebug/14/classes.dex
-base.5=/home/adixtin/School/Third/Kotlin/ChatApp/app/build/intermediates/dex/debug/mergeProjectDexDebug/3/classes.dex
-base.6=/home/adixtin/School/Third/Kotlin/ChatApp/app/build/intermediates/dex/debug/mergeProjectDexDebug/4/classes.dex
-base.7=/home/adixtin/School/Third/Kotlin/ChatApp/app/build/intermediates/dex/debug/mergeProjectDexDebug/7/classes.dex
-base.8=/home/adixtin/School/Third/Kotlin/ChatApp/app/build/intermediates/dex/debug/mergeProjectDexDebug/9/classes.dex
-base.9=/home/adixtin/School/Third/Kotlin/ChatApp/app/build/intermediates/dex/debug/mergeExtDexDebug/classes2.dex
+#Sun Mar 29 13:42:57 CEST 2026
+base.0=/home/hipo/programing/kotlin/tymon-wez-se-to-jakos-uporzadkuj-i-zrob-zeby-cute-uwu-commity-pls/app/build/intermediates/dex/debug/mergeExtDexDebug/classes.dex
+base.1=/home/hipo/programing/kotlin/tymon-wez-se-to-jakos-uporzadkuj-i-zrob-zeby-cute-uwu-commity-pls/app/build/intermediates/dex/debug/mergeProjectDexDebug/0/classes.dex
+base.10=/home/hipo/programing/kotlin/tymon-wez-se-to-jakos-uporzadkuj-i-zrob-zeby-cute-uwu-commity-pls/app/build/intermediates/dex/debug/mergeExtDexDebug/classes3.dex
+base.2=/home/hipo/programing/kotlin/tymon-wez-se-to-jakos-uporzadkuj-i-zrob-zeby-cute-uwu-commity-pls/app/build/intermediates/dex/debug/mergeProjectDexDebug/1/classes.dex
+base.3=/home/hipo/programing/kotlin/tymon-wez-se-to-jakos-uporzadkuj-i-zrob-zeby-cute-uwu-commity-pls/app/build/intermediates/dex/debug/mergeProjectDexDebug/10/classes.dex
+base.4=/home/hipo/programing/kotlin/tymon-wez-se-to-jakos-uporzadkuj-i-zrob-zeby-cute-uwu-commity-pls/app/build/intermediates/dex/debug/mergeProjectDexDebug/14/classes.dex
+base.5=/home/hipo/programing/kotlin/tymon-wez-se-to-jakos-uporzadkuj-i-zrob-zeby-cute-uwu-commity-pls/app/build/intermediates/dex/debug/mergeProjectDexDebug/3/classes.dex
+base.6=/home/hipo/programing/kotlin/tymon-wez-se-to-jakos-uporzadkuj-i-zrob-zeby-cute-uwu-commity-pls/app/build/intermediates/dex/debug/mergeProjectDexDebug/4/classes.dex
+base.7=/home/hipo/programing/kotlin/tymon-wez-se-to-jakos-uporzadkuj-i-zrob-zeby-cute-uwu-commity-pls/app/build/intermediates/dex/debug/mergeProjectDexDebug/7/classes.dex
+base.8=/home/hipo/programing/kotlin/tymon-wez-se-to-jakos-uporzadkuj-i-zrob-zeby-cute-uwu-commity-pls/app/build/intermediates/dex/debug/mergeProjectDexDebug/9/classes.dex
+base.9=/home/hipo/programing/kotlin/tymon-wez-se-to-jakos-uporzadkuj-i-zrob-zeby-cute-uwu-commity-pls/app/build/intermediates/dex/debug/mergeExtDexDebug/classes2.dex
 path.0=classes.dex
 path.1=0/classes.dex
 path.10=classes3.dex

@@ -405,15 +405,15 @@ public final class DaggerChatApplication_HiltComponents_SingletonC {
 
     @IdentifierNameString
     private static final class LazyClassKeyProvider {
-      static String com_chat_app_presentation_login_LoginViewModel = "com.chat.app.presentation.login.LoginViewModel";
-
       static String com_chat_app_presentation_chat_ChatViewModel = "com.chat.app.presentation.chat.ChatViewModel";
 
-      @KeepFieldType
-      LoginViewModel com_chat_app_presentation_login_LoginViewModel2;
+      static String com_chat_app_presentation_login_LoginViewModel = "com.chat.app.presentation.login.LoginViewModel";
 
       @KeepFieldType
       ChatViewModel com_chat_app_presentation_chat_ChatViewModel2;
+
+      @KeepFieldType
+      LoginViewModel com_chat_app_presentation_login_LoginViewModel2;
     }
   }
 
@@ -457,15 +457,15 @@ public final class DaggerChatApplication_HiltComponents_SingletonC {
 
     @IdentifierNameString
     private static final class LazyClassKeyProvider {
-      static String com_chat_app_presentation_chat_ChatViewModel = "com.chat.app.presentation.chat.ChatViewModel";
-
       static String com_chat_app_presentation_login_LoginViewModel = "com.chat.app.presentation.login.LoginViewModel";
 
-      @KeepFieldType
-      ChatViewModel com_chat_app_presentation_chat_ChatViewModel2;
+      static String com_chat_app_presentation_chat_ChatViewModel = "com.chat.app.presentation.chat.ChatViewModel";
 
       @KeepFieldType
       LoginViewModel com_chat_app_presentation_login_LoginViewModel2;
+
+      @KeepFieldType
+      ChatViewModel com_chat_app_presentation_chat_ChatViewModel2;
     }
 
     private static final class SwitchingProvider<T> implements Provider<T> {
@@ -614,7 +614,7 @@ public final class DaggerChatApplication_HiltComponents_SingletonC {
     }
 
     @Override
-    public void injectChatApplication(ChatApplication chatApplication) {
+    public void injectChatApplication(ChatApplication arg0) {
     }
 
     @Override
