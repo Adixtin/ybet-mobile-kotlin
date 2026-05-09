@@ -14,9 +14,11 @@ import javax.inject.Inject
 
 data class LoginUiState(
     val username: String = "",
+    val password: String = "",
     val isLoading: Boolean = false,
     val error: String? = null,
-    val isLoggedIn: Boolean = false
+    val isLoggedIn: Boolean = false,
+    val isSigninMode: Boolean = false   // false = login, true = rejestracja
 )
 
 @HiltViewModel
@@ -43,17 +45,37 @@ class LoginViewModel @Inject constructor(
         _uiState.update { it.copy(username = value, error = null) }
     }
 
-    fun login() {
+    fun onPasswordChange(value: String) {
+        _uiState.update { it.copy(password = value, error = null) }
+    }
+
+    fun toggleMode() {
+        _uiState.update { it.copy(isSigninMode = !it.isSigninMode, error = null) }
+    }
+
+    fun submit() {
         val username = _uiState.value.username.trim()
+        val password = _uiState.value.password
+
         if (username.isBlank()) {
             _uiState.update { it.copy(error = "Username cannot be empty") }
             return
         }
+        if (password.isBlank()) {
+            _uiState.update { it.copy(error = "Password cannot be empty") }
+            return
+        }
+
         viewModelScope.launch {
             _uiState.update { it.copy(isLoading = true, error = null) }
-            when (val result = repository.login(username)) {
+            val result = if (_uiState.value.isSigninMode) {
+                repository.signin(username, password)
+            } else {
+                repository.login(username, password)
+            }
+            when (result) {
                 is Result.Success -> _uiState.update { it.copy(isLoading = false, isLoggedIn = true) }
-                is Result.Error -> _uiState.update { it.copy(isLoading = false, error = result.message) }
+                is Result.Error   -> _uiState.update { it.copy(isLoading = false, error = result.message) }
             }
         }
     }

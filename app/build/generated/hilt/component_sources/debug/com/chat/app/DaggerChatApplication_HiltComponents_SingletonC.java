@@ -6,8 +6,11 @@ import android.view.View;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.SavedStateHandle;
 import androidx.lifecycle.ViewModel;
+import com.chat.app.data.local.ServerConfigDataStore;
+import com.chat.app.data.local.ThemeDataStore;
 import com.chat.app.data.local.TokenDataStore;
 import com.chat.app.data.remote.api.AuthInterceptor;
+import com.chat.app.data.remote.api.BaseUrlInterceptor;
 import com.chat.app.data.remote.api.ChatApiService;
 import com.chat.app.data.remote.websocket.WebSocketManager;
 import com.chat.app.data.repository.ChatRepository;
@@ -16,11 +19,14 @@ import com.chat.app.di.AppModule_ProvideGsonFactory;
 import com.chat.app.di.AppModule_ProvideLoggingInterceptorFactory;
 import com.chat.app.di.AppModule_ProvideOkHttpClientFactory;
 import com.chat.app.di.AppModule_ProvideRetrofitFactory;
-import com.chat.app.di.AppModule_ProvideWsBaseUrlFactory;
+import com.chat.app.di.AppModule_ProvideWsOkHttpClientFactory;
 import com.chat.app.presentation.chat.ChatViewModel;
 import com.chat.app.presentation.chat.ChatViewModel_HiltModules;
 import com.chat.app.presentation.login.LoginViewModel;
 import com.chat.app.presentation.login.LoginViewModel_HiltModules;
+import com.chat.app.presentation.serverconfig.ServerConfigViewModel;
+import com.chat.app.presentation.serverconfig.ServerConfigViewModel_HiltModules;
+import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import com.google.gson.Gson;
 import dagger.hilt.android.ActivityRetainedLifecycle;
 import dagger.hilt.android.ViewModelLifecycle;
@@ -376,6 +382,7 @@ public final class DaggerChatApplication_HiltComponents_SingletonC {
 
     @Override
     public void injectMainActivity(MainActivity arg0) {
+      injectMainActivity2(arg0);
     }
 
     @Override
@@ -385,7 +392,7 @@ public final class DaggerChatApplication_HiltComponents_SingletonC {
 
     @Override
     public Map<Class<?>, Boolean> getViewModelKeys() {
-      return LazyClassKeyMap.<Boolean>of(MapBuilder.<String, Boolean>newMapBuilder(2).put(LazyClassKeyProvider.com_chat_app_presentation_chat_ChatViewModel, ChatViewModel_HiltModules.KeyModule.provide()).put(LazyClassKeyProvider.com_chat_app_presentation_login_LoginViewModel, LoginViewModel_HiltModules.KeyModule.provide()).build());
+      return LazyClassKeyMap.<Boolean>of(MapBuilder.<String, Boolean>newMapBuilder(3).put(LazyClassKeyProvider.com_chat_app_presentation_chat_ChatViewModel, ChatViewModel_HiltModules.KeyModule.provide()).put(LazyClassKeyProvider.com_chat_app_presentation_login_LoginViewModel, LoginViewModel_HiltModules.KeyModule.provide()).put(LazyClassKeyProvider.com_chat_app_presentation_serverconfig_ServerConfigViewModel, ServerConfigViewModel_HiltModules.KeyModule.provide()).build());
     }
 
     @Override
@@ -403,17 +410,28 @@ public final class DaggerChatApplication_HiltComponents_SingletonC {
       return new ViewCBuilder(singletonCImpl, activityRetainedCImpl, activityCImpl);
     }
 
+    @CanIgnoreReturnValue
+    private MainActivity injectMainActivity2(MainActivity instance) {
+      MainActivity_MembersInjector.injectThemeDataStore(instance, singletonCImpl.themeDataStoreProvider.get());
+      return instance;
+    }
+
     @IdentifierNameString
     private static final class LazyClassKeyProvider {
-      static String com_chat_app_presentation_chat_ChatViewModel = "com.chat.app.presentation.chat.ChatViewModel";
-
       static String com_chat_app_presentation_login_LoginViewModel = "com.chat.app.presentation.login.LoginViewModel";
 
-      @KeepFieldType
-      ChatViewModel com_chat_app_presentation_chat_ChatViewModel2;
+      static String com_chat_app_presentation_serverconfig_ServerConfigViewModel = "com.chat.app.presentation.serverconfig.ServerConfigViewModel";
+
+      static String com_chat_app_presentation_chat_ChatViewModel = "com.chat.app.presentation.chat.ChatViewModel";
 
       @KeepFieldType
       LoginViewModel com_chat_app_presentation_login_LoginViewModel2;
+
+      @KeepFieldType
+      ServerConfigViewModel com_chat_app_presentation_serverconfig_ServerConfigViewModel2;
+
+      @KeepFieldType
+      ChatViewModel com_chat_app_presentation_chat_ChatViewModel2;
     }
   }
 
@@ -427,6 +445,8 @@ public final class DaggerChatApplication_HiltComponents_SingletonC {
     private Provider<ChatViewModel> chatViewModelProvider;
 
     private Provider<LoginViewModel> loginViewModelProvider;
+
+    private Provider<ServerConfigViewModel> serverConfigViewModelProvider;
 
     private ViewModelCImpl(SingletonCImpl singletonCImpl,
         ActivityRetainedCImpl activityRetainedCImpl, SavedStateHandle savedStateHandleParam,
@@ -443,11 +463,12 @@ public final class DaggerChatApplication_HiltComponents_SingletonC {
         final ViewModelLifecycle viewModelLifecycleParam) {
       this.chatViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 0);
       this.loginViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 1);
+      this.serverConfigViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 2);
     }
 
     @Override
     public Map<Class<?>, javax.inject.Provider<ViewModel>> getHiltViewModelMap() {
-      return LazyClassKeyMap.<javax.inject.Provider<ViewModel>>of(MapBuilder.<String, javax.inject.Provider<ViewModel>>newMapBuilder(2).put(LazyClassKeyProvider.com_chat_app_presentation_chat_ChatViewModel, ((Provider) chatViewModelProvider)).put(LazyClassKeyProvider.com_chat_app_presentation_login_LoginViewModel, ((Provider) loginViewModelProvider)).build());
+      return LazyClassKeyMap.<javax.inject.Provider<ViewModel>>of(MapBuilder.<String, javax.inject.Provider<ViewModel>>newMapBuilder(3).put(LazyClassKeyProvider.com_chat_app_presentation_chat_ChatViewModel, ((Provider) chatViewModelProvider)).put(LazyClassKeyProvider.com_chat_app_presentation_login_LoginViewModel, ((Provider) loginViewModelProvider)).put(LazyClassKeyProvider.com_chat_app_presentation_serverconfig_ServerConfigViewModel, ((Provider) serverConfigViewModelProvider)).build());
     }
 
     @Override
@@ -457,15 +478,20 @@ public final class DaggerChatApplication_HiltComponents_SingletonC {
 
     @IdentifierNameString
     private static final class LazyClassKeyProvider {
-      static String com_chat_app_presentation_login_LoginViewModel = "com.chat.app.presentation.login.LoginViewModel";
+      static String com_chat_app_presentation_serverconfig_ServerConfigViewModel = "com.chat.app.presentation.serverconfig.ServerConfigViewModel";
 
       static String com_chat_app_presentation_chat_ChatViewModel = "com.chat.app.presentation.chat.ChatViewModel";
 
+      static String com_chat_app_presentation_login_LoginViewModel = "com.chat.app.presentation.login.LoginViewModel";
+
       @KeepFieldType
-      LoginViewModel com_chat_app_presentation_login_LoginViewModel2;
+      ServerConfigViewModel com_chat_app_presentation_serverconfig_ServerConfigViewModel2;
 
       @KeepFieldType
       ChatViewModel com_chat_app_presentation_chat_ChatViewModel2;
+
+      @KeepFieldType
+      LoginViewModel com_chat_app_presentation_login_LoginViewModel2;
     }
 
     private static final class SwitchingProvider<T> implements Provider<T> {
@@ -494,6 +520,9 @@ public final class DaggerChatApplication_HiltComponents_SingletonC {
 
           case 1: // com.chat.app.presentation.login.LoginViewModel 
           return (T) new LoginViewModel(singletonCImpl.chatRepositoryProvider.get());
+
+          case 2: // com.chat.app.presentation.serverconfig.ServerConfigViewModel 
+          return (T) new ServerConfigViewModel(singletonCImpl.serverConfigDataStoreProvider.get());
 
           default: throw new AssertionError(id);
         }
@@ -575,6 +604,10 @@ public final class DaggerChatApplication_HiltComponents_SingletonC {
 
     private final SingletonCImpl singletonCImpl = this;
 
+    private Provider<ThemeDataStore> themeDataStoreProvider;
+
+    private Provider<ServerConfigDataStore> serverConfigDataStoreProvider;
+
     private Provider<TokenDataStore> tokenDataStoreProvider;
 
     private Provider<HttpLoggingInterceptor> provideLoggingInterceptorProvider;
@@ -587,6 +620,8 @@ public final class DaggerChatApplication_HiltComponents_SingletonC {
 
     private Provider<ChatApiService> provideChatApiServiceProvider;
 
+    private Provider<OkHttpClient> provideWsOkHttpClientProvider;
+
     private Provider<WebSocketManager> webSocketManagerProvider;
 
     private Provider<ChatRepository> chatRepositoryProvider;
@@ -597,24 +632,31 @@ public final class DaggerChatApplication_HiltComponents_SingletonC {
 
     }
 
+    private BaseUrlInterceptor baseUrlInterceptor() {
+      return new BaseUrlInterceptor(serverConfigDataStoreProvider.get());
+    }
+
     private AuthInterceptor authInterceptor() {
       return new AuthInterceptor(tokenDataStoreProvider.get());
     }
 
     @SuppressWarnings("unchecked")
     private void initialize(final ApplicationContextModule applicationContextModuleParam) {
-      this.tokenDataStoreProvider = DoubleCheck.provider(new SwitchingProvider<TokenDataStore>(singletonCImpl, 4));
-      this.provideLoggingInterceptorProvider = DoubleCheck.provider(new SwitchingProvider<HttpLoggingInterceptor>(singletonCImpl, 5));
-      this.provideOkHttpClientProvider = DoubleCheck.provider(new SwitchingProvider<OkHttpClient>(singletonCImpl, 3));
-      this.provideGsonProvider = DoubleCheck.provider(new SwitchingProvider<Gson>(singletonCImpl, 6));
-      this.provideRetrofitProvider = DoubleCheck.provider(new SwitchingProvider<Retrofit>(singletonCImpl, 2));
-      this.provideChatApiServiceProvider = DoubleCheck.provider(new SwitchingProvider<ChatApiService>(singletonCImpl, 1));
-      this.webSocketManagerProvider = DoubleCheck.provider(new SwitchingProvider<WebSocketManager>(singletonCImpl, 7));
-      this.chatRepositoryProvider = DoubleCheck.provider(new SwitchingProvider<ChatRepository>(singletonCImpl, 0));
+      this.themeDataStoreProvider = DoubleCheck.provider(new SwitchingProvider<ThemeDataStore>(singletonCImpl, 0));
+      this.serverConfigDataStoreProvider = DoubleCheck.provider(new SwitchingProvider<ServerConfigDataStore>(singletonCImpl, 5));
+      this.tokenDataStoreProvider = DoubleCheck.provider(new SwitchingProvider<TokenDataStore>(singletonCImpl, 6));
+      this.provideLoggingInterceptorProvider = DoubleCheck.provider(new SwitchingProvider<HttpLoggingInterceptor>(singletonCImpl, 7));
+      this.provideOkHttpClientProvider = DoubleCheck.provider(new SwitchingProvider<OkHttpClient>(singletonCImpl, 4));
+      this.provideGsonProvider = DoubleCheck.provider(new SwitchingProvider<Gson>(singletonCImpl, 8));
+      this.provideRetrofitProvider = DoubleCheck.provider(new SwitchingProvider<Retrofit>(singletonCImpl, 3));
+      this.provideChatApiServiceProvider = DoubleCheck.provider(new SwitchingProvider<ChatApiService>(singletonCImpl, 2));
+      this.provideWsOkHttpClientProvider = DoubleCheck.provider(new SwitchingProvider<OkHttpClient>(singletonCImpl, 10));
+      this.webSocketManagerProvider = DoubleCheck.provider(new SwitchingProvider<WebSocketManager>(singletonCImpl, 9));
+      this.chatRepositoryProvider = DoubleCheck.provider(new SwitchingProvider<ChatRepository>(singletonCImpl, 1));
     }
 
     @Override
-    public void injectChatApplication(ChatApplication arg0) {
+    public void injectChatApplication(ChatApplication chatApplication) {
     }
 
     @Override
@@ -646,29 +688,38 @@ public final class DaggerChatApplication_HiltComponents_SingletonC {
       @Override
       public T get() {
         switch (id) {
-          case 0: // com.chat.app.data.repository.ChatRepository 
+          case 0: // com.chat.app.data.local.ThemeDataStore 
+          return (T) new ThemeDataStore(ApplicationContextModule_ProvideContextFactory.provideContext(singletonCImpl.applicationContextModule));
+
+          case 1: // com.chat.app.data.repository.ChatRepository 
           return (T) new ChatRepository(singletonCImpl.provideChatApiServiceProvider.get(), singletonCImpl.webSocketManagerProvider.get(), singletonCImpl.tokenDataStoreProvider.get());
 
-          case 1: // com.chat.app.data.remote.api.ChatApiService 
+          case 2: // com.chat.app.data.remote.api.ChatApiService 
           return (T) AppModule_ProvideChatApiServiceFactory.provideChatApiService(singletonCImpl.provideRetrofitProvider.get());
 
-          case 2: // retrofit2.Retrofit 
+          case 3: // retrofit2.Retrofit 
           return (T) AppModule_ProvideRetrofitFactory.provideRetrofit(singletonCImpl.provideOkHttpClientProvider.get(), singletonCImpl.provideGsonProvider.get());
 
-          case 3: // okhttp3.OkHttpClient 
-          return (T) AppModule_ProvideOkHttpClientFactory.provideOkHttpClient(singletonCImpl.authInterceptor(), singletonCImpl.provideLoggingInterceptorProvider.get());
+          case 4: // okhttp3.OkHttpClient 
+          return (T) AppModule_ProvideOkHttpClientFactory.provideOkHttpClient(singletonCImpl.baseUrlInterceptor(), singletonCImpl.authInterceptor(), singletonCImpl.provideLoggingInterceptorProvider.get());
 
-          case 4: // com.chat.app.data.local.TokenDataStore 
+          case 5: // com.chat.app.data.local.ServerConfigDataStore 
+          return (T) new ServerConfigDataStore(ApplicationContextModule_ProvideContextFactory.provideContext(singletonCImpl.applicationContextModule));
+
+          case 6: // com.chat.app.data.local.TokenDataStore 
           return (T) new TokenDataStore(ApplicationContextModule_ProvideContextFactory.provideContext(singletonCImpl.applicationContextModule));
 
-          case 5: // okhttp3.logging.HttpLoggingInterceptor 
+          case 7: // okhttp3.logging.HttpLoggingInterceptor 
           return (T) AppModule_ProvideLoggingInterceptorFactory.provideLoggingInterceptor();
 
-          case 6: // com.google.gson.Gson 
+          case 8: // com.google.gson.Gson 
           return (T) AppModule_ProvideGsonFactory.provideGson();
 
-          case 7: // com.chat.app.data.remote.websocket.WebSocketManager 
-          return (T) new WebSocketManager(singletonCImpl.provideOkHttpClientProvider.get(), singletonCImpl.provideGsonProvider.get(), AppModule_ProvideWsBaseUrlFactory.provideWsBaseUrl());
+          case 9: // com.chat.app.data.remote.websocket.WebSocketManager 
+          return (T) new WebSocketManager(singletonCImpl.provideWsOkHttpClientProvider.get(), singletonCImpl.provideGsonProvider.get(), singletonCImpl.serverConfigDataStoreProvider.get());
+
+          case 10: // @javax.inject.Named("wsOkHttp") okhttp3.OkHttpClient 
+          return (T) AppModule_ProvideWsOkHttpClientFactory.provideWsOkHttpClient(singletonCImpl.authInterceptor(), singletonCImpl.provideLoggingInterceptorProvider.get());
 
           default: throw new AssertionError(id);
         }

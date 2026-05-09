@@ -145,5 +145,5 @@ private fun SmallButton(
 
 private fun formatTimestamp(timestamp: Long): String {
     val sdf = SimpleDateFormat("HH:mm", Locale.getDefault())
-    return sdf.format(Date(timestamp))
+    return sdf.format(Date(timestamp * 1000L))
 }

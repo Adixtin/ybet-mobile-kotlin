@@ -12,22 +12,30 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import javax.inject.Singleton
 
-private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "chat_prefs")
+val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "chat_prefs")
 
 @Singleton
 class TokenDataStore @Inject constructor(
     @ApplicationContext private val context: Context
 ) {
-    private val TOKEN_KEY = stringPreferencesKey("jwt_token")
-    private val USERNAME_KEY = stringPreferencesKey("username")
-    private val USER_ID_KEY = stringPreferencesKey("user_id")
+    private val AUTH_TOKEN_KEY     = stringPreferencesKey("auth_token")
+    private val REFRESH_TOKEN_KEY  = stringPreferencesKey("refresh_token")
+    private val USERNAME_KEY       = stringPreferencesKey("username")
+    private val USER_ID_KEY        = stringPreferencesKey("user_id")
 
-    suspend fun saveToken(token: String) {
-        context.dataStore.edit { it[TOKEN_KEY] = token }
+    suspend fun saveAuthToken(token: String) {
+        context.dataStore.edit { it[AUTH_TOKEN_KEY] = token }
     }
 
-    suspend fun getToken(): String? =
-        context.dataStore.data.map { it[TOKEN_KEY] }.first()
+    suspend fun getAuthToken(): String? =
+        context.dataStore.data.map { it[AUTH_TOKEN_KEY] }.first()
+
+    suspend fun saveRefreshToken(token: String) {
+        context.dataStore.edit { it[REFRESH_TOKEN_KEY] = token }
+    }
+
+    suspend fun getRefreshToken(): String? =
+        context.dataStore.data.map { it[REFRESH_TOKEN_KEY] }.first()
 
     suspend fun saveUsername(username: String) {
         context.dataStore.edit { it[USERNAME_KEY] = username }

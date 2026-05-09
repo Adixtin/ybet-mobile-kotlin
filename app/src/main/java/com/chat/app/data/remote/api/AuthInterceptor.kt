@@ -10,7 +10,7 @@ class AuthInterceptor @Inject constructor(
     private val tokenDataStore: TokenDataStore
 ) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
-        val token = runBlocking { tokenDataStore.getToken() }
+        val token = runBlocking { tokenDataStore.getAuthToken() }
         val request = if (token != null) {
             chain.request().newBuilder()
                 .addHeader("Authorization", "Bearer $token")

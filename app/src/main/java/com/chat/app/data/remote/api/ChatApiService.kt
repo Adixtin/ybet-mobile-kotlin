@@ -6,22 +6,37 @@ import retrofit2.http.*
 
 // Request bodies
 
-data class LoginRequest(val username: String)
+data class SigninRequest(
+    val username: String,
+    val password: String
+)
+
+data class LoginRequest(
+    val username: String,
+    val password: String
+)
+
+data class RefreshTokenRequest(
+    @SerializedName("refresh_token") val refreshToken: String
+)
 
 data class SendMessageRequest(val content: String)
 
-data class EditMessageRequest(
-    @SerializedName("message_id") val messageId: String,
-    val content: String
-)
-
-data class DeleteMessageRequest(
-    @SerializedName("message_id") val messageId: String
-)
+data class EditMessageRequest(val content: String)
 
 // Response bodies
 
-data class LoginResponse(val token: String)
+data class AuthResponse(
+    @SerializedName("refresh_token") val refreshToken: String,
+    @SerializedName("auth_token") val authToken: String,
+    val id: String
+)
+
+data class RefreshTokenResponse(
+    @SerializedName("auth_token") val authToken: String
+)
+
+data class ErrorResponse(val error: String)
 
 data class MessageDto(
     @SerializedName("message_id") val messageId: String,
@@ -32,9 +47,7 @@ data class MessageDto(
 )
 
 data class MessagesResponse(
-    val success: Boolean,
-    val messages: List<MessageDto>? = null,
-    val error: String? = null
+    val messages: List<MessageDto>
 )
 
 data class SendMessageResponse(
@@ -46,8 +59,14 @@ data class SendMessageResponse(
 
 interface ChatApiService {
 
-    @POST("login")
-    suspend fun login(@Body request: LoginRequest): Response<LoginResponse>
+    @POST("user/signin")
+    suspend fun signin(@Body request: SigninRequest): Response<AuthResponse>
+
+    @POST("user/login")
+    suspend fun login(@Body request: LoginRequest): Response<AuthResponse>
+
+    @POST("user/auth-token")
+    suspend fun refreshAuthToken(@Body request: RefreshTokenRequest): Response<RefreshTokenResponse>
 
     @GET("messages")
     suspend fun getMessages(
@@ -59,13 +78,14 @@ interface ChatApiService {
         @Body request: SendMessageRequest
     ): Response<SendMessageResponse>
 
-    @PATCH("messages")
+    @PATCH("messages/{messageId}")
     suspend fun editMessage(
+        @Path("messageId") messageId: String,
         @Body request: EditMessageRequest
     ): Response<Unit>
 
-    @HTTP(method = "DELETE", path = "messages", hasBody = true)
+    @DELETE("messages/{messageId}")
     suspend fun deleteMessage(
-        @Body request: DeleteMessageRequest
+        @Path("messageId") messageId: String
     ): Response<Unit>
 }

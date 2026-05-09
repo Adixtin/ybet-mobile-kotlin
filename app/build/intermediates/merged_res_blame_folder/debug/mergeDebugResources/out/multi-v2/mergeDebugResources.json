@@ -3266,6 +3266,23 @@
                     }
                 },
                 {
+                    "source": "/home/hipo/programing/szkola/programowanie-aplikacji-mobilnych/kms/ybet-mobile-kotlin/app/src/main/res/values/themes.xml",
+                    "from": {
+                        "startLines": "1",
+                        "startColumns": "4",
+                        "startOffsets": "16",
+                        "endColumns": "84",
+                        "endOffsets": "96"
+                    },
+                    "to": {
+                        "startLines": "229",
+                        "startColumns": "4",
+                        "startOffsets": "14644",
+                        "endColumns": "83",
+                        "endOffsets": "14723"
+                    }
+                },
+                {
                     "source": "/home/hipo/.gradle/caches/9.0.0/transforms/2092bf863f3fffd3aa6e6f663518f6f8/transformed/fragment-1.5.1/res/values/values.xml",
                     "from": {
                         "startLines": "2,3,4,5,10",
@@ -3359,23 +3376,6 @@
                     }
                 },
                 {
-                    "source": "/home/hipo/programing/kotlin/tymon-wez-se-to-jakos-uporzadkuj-i-zrob-zeby-cute-uwu-commity-pls/app/src/main/res/values/themes.xml",
-                    "from": {
-                        "startLines": "1",
-                        "startColumns": "4",
-                        "startOffsets": "16",
-                        "endColumns": "84",
-                        "endOffsets": "96"
-                    },
-                    "to": {
-                        "startLines": "229",
-                        "startColumns": "4",
-                        "startOffsets": "14644",
-                        "endColumns": "83",
-                        "endOffsets": "14723"
-                    }
-                },
-                {
                     "source": "/home/hipo/.gradle/caches/9.0.0/transforms/df8af8614e28214035ad488e33931700/transformed/startup-runtime-1.1.1/res/values/values.xml",
                     "from": {
                         "startLines": "2",
@@ -3431,7 +3431,7 @@
                     }
                 },
                 {
-                    "source": "/home/hipo/programing/kotlin/tymon-wez-se-to-jakos-uporzadkuj-i-zrob-zeby-cute-uwu-commity-pls/app/src/main/res/values/strings.xml",
+                    "source": "/home/hipo/programing/szkola/programowanie-aplikacji-mobilnych/kms/ybet-mobile-kotlin/app/src/main/res/values/strings.xml",
                     "from": {
                         "startLines": "1",
                         "startColumns": "4",

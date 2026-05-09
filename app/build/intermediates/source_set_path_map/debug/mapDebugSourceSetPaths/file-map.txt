@@ -54,10 +54,10 @@ com.chat.app-lifecycle-process-2.8.4-52 /home/hipo/.gradle/caches/9.0.0/transfor
 com.chat.app-navigation-runtime-ktx-2.7.7-53 /home/hipo/.gradle/caches/9.0.0/transforms/fdf6d9adaaa1e64bd8238039beda4ef1/transformed/navigation-runtime-ktx-2.7.7/res
 com.chat.app-lifecycle-runtime-release-54 /home/hipo/.gradle/caches/9.0.0/transforms/feaf0b64751a242f8035a7026bd2949e/transformed/lifecycle-runtime-release/res
 com.chat.app-lifecycle-viewmodel-compose-release-55 /home/hipo/.gradle/caches/9.0.0/transforms/ff16fd38df83c588340762e000015a8f/transformed/lifecycle-viewmodel-compose-release/res
-com.chat.app-pngs-56 /home/hipo/programing/kotlin/tymon-wez-se-to-jakos-uporzadkuj-i-zrob-zeby-cute-uwu-commity-pls/app/build/generated/res/pngs/debug
-com.chat.app-resValues-57 /home/hipo/programing/kotlin/tymon-wez-se-to-jakos-uporzadkuj-i-zrob-zeby-cute-uwu-commity-pls/app/build/generated/res/resValues/debug
-com.chat.app-packageDebugResources-58 /home/hipo/programing/kotlin/tymon-wez-se-to-jakos-uporzadkuj-i-zrob-zeby-cute-uwu-commity-pls/app/build/intermediates/incremental/debug/packageDebugResources/merged.dir
-com.chat.app-packageDebugResources-59 /home/hipo/programing/kotlin/tymon-wez-se-to-jakos-uporzadkuj-i-zrob-zeby-cute-uwu-commity-pls/app/build/intermediates/incremental/debug/packageDebugResources/stripped.dir
-com.chat.app-debug-60 /home/hipo/programing/kotlin/tymon-wez-se-to-jakos-uporzadkuj-i-zrob-zeby-cute-uwu-commity-pls/app/build/intermediates/merged_res/debug/mergeDebugResources
-com.chat.app-debug-61 /home/hipo/programing/kotlin/tymon-wez-se-to-jakos-uporzadkuj-i-zrob-zeby-cute-uwu-commity-pls/app/src/debug/res
-com.chat.app-main-62 /home/hipo/programing/kotlin/tymon-wez-se-to-jakos-uporzadkuj-i-zrob-zeby-cute-uwu-commity-pls/app/src/main/res
+com.chat.app-pngs-56 /home/hipo/programing/szkola/programowanie-aplikacji-mobilnych/kms/ybet-mobile-kotlin/app/build/generated/res/pngs/debug
+com.chat.app-resValues-57 /home/hipo/programing/szkola/programowanie-aplikacji-mobilnych/kms/ybet-mobile-kotlin/app/build/generated/res/resValues/debug
+com.chat.app-packageDebugResources-58 /home/hipo/programing/szkola/programowanie-aplikacji-mobilnych/kms/ybet-mobile-kotlin/app/build/intermediates/incremental/debug/packageDebugResources/merged.dir
+com.chat.app-packageDebugResources-59 /home/hipo/programing/szkola/programowanie-aplikacji-mobilnych/kms/ybet-mobile-kotlin/app/build/intermediates/incremental/debug/packageDebugResources/stripped.dir
+com.chat.app-debug-60 /home/hipo/programing/szkola/programowanie-aplikacji-mobilnych/kms/ybet-mobile-kotlin/app/build/intermediates/merged_res/debug/mergeDebugResources
+com.chat.app-debug-61 /home/hipo/programing/szkola/programowanie-aplikacji-mobilnych/kms/ybet-mobile-kotlin/app/src/debug/res
+com.chat.app-main-62 /home/hipo/programing/szkola/programowanie-aplikacji-mobilnych/kms/ybet-mobile-kotlin/app/src/main/res

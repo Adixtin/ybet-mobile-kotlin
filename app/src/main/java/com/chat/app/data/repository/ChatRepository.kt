@@ -1,17 +1,16 @@
 package com.chat.app.data.repository
 
-import android.util.Base64
 import com.chat.app.data.local.TokenDataStore
 import com.chat.app.data.remote.api.ChatApiService
-import com.chat.app.data.remote.api.DeleteMessageRequest
 import com.chat.app.data.remote.api.EditMessageRequest
 import com.chat.app.data.remote.api.LoginRequest
+import com.chat.app.data.remote.api.RefreshTokenRequest
 import com.chat.app.data.remote.api.SendMessageRequest
+import com.chat.app.data.remote.api.SigninRequest
 import com.chat.app.data.remote.websocket.WsEvent
 import com.chat.app.data.remote.websocket.WebSocketManager
 import com.chat.app.domain.model.Message
 import kotlinx.coroutines.flow.Flow
-import org.json.JSONObject
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -27,24 +26,50 @@ class ChatRepository @Inject constructor(
     private val tokenDataStore: TokenDataStore
 ) {
 
-    suspend fun login(username: String): Result<Unit> = try {
-        val response = apiService.login(LoginRequest(username))
+    /** Rejestracja nowego użytkownika */
+    suspend fun signin(username: String, password: String): Result<Unit> = try {
+        val response = apiService.signin(SigninRequest(username, password))
         if (response.isSuccessful && response.body() != null) {
-            val token = response.body()!!.token
-            tokenDataStore.saveToken(token)
+            val body = response.body()!!
+            tokenDataStore.saveAuthToken(body.authToken)
+            tokenDataStore.saveRefreshToken(body.refreshToken)
+            tokenDataStore.saveUserId(body.id)
             tokenDataStore.saveUsername(username)
+            Result.Success(Unit)
+        } else {
+            Result.Error("Sign-in failed: ${response.code()}")
+        }
+    } catch (e: Exception) {
+        Result.Error(e.message ?: "Unknown error")
+    }
 
-            try {
-                val payload = token.split(".")[1]
-                val decoded = String(Base64.decode(payload, Base64.URL_SAFE or Base64.NO_PADDING))
-                val json = JSONObject(decoded)
-                val userId = json.optString("user_id", json.optString("sub", ""))
-                if (userId.isNotBlank()) tokenDataStore.saveUserId(userId)
-            } catch (_: Exception) {}
-
+    /** Logowanie istniejącego użytkownika */
+    suspend fun login(username: String, password: String): Result<Unit> = try {
+        val response = apiService.login(LoginRequest(username, password))
+        if (response.isSuccessful && response.body() != null) {
+            val body = response.body()!!
+            tokenDataStore.saveAuthToken(body.authToken)
+            tokenDataStore.saveRefreshToken(body.refreshToken)
+            tokenDataStore.saveUserId(body.id)
+            tokenDataStore.saveUsername(username)
             Result.Success(Unit)
         } else {
             Result.Error("Login failed: ${response.code()}")
+        }
+    } catch (e: Exception) {
+        Result.Error(e.message ?: "Unknown error")
+    }
+
+    /** Odświeżenie auth_token przy użyciu refresh_token */
+    suspend fun refreshAuthToken(): Result<Unit> = try {
+        val refreshToken = tokenDataStore.getRefreshToken()
+            ?: return Result.Error("No refresh token available")
+        val response = apiService.refreshAuthToken(RefreshTokenRequest(refreshToken))
+        if (response.isSuccessful && response.body() != null) {
+            tokenDataStore.saveAuthToken(response.body()!!.authToken)
+            Result.Success(Unit)
+        } else {
+            Result.Error("Token refresh failed: ${response.code()}")
         }
     } catch (e: Exception) {
         Result.Error(e.message ?: "Unknown error")
@@ -55,20 +80,20 @@ class ChatRepository @Inject constructor(
         tokenDataStore.clear()
     }
 
-    suspend fun isLoggedIn(): Boolean = tokenDataStore.getToken() != null
+    suspend fun isLoggedIn(): Boolean = tokenDataStore.getAuthToken() != null
 
     suspend fun getCurrentUserId(): String? = tokenDataStore.getUserId()
     suspend fun getCurrentUsername(): String? = tokenDataStore.getUsername()
 
     suspend fun getMessages(limit: Int = 50): Result<List<Message>> = try {
         val response = apiService.getMessages(limit)
-        if (response.isSuccessful && response.body()?.success == true) {
-            val messages = response.body()!!.messages.orEmpty().map {
+        if (response.isSuccessful && response.body() != null) {
+            val messages = response.body()!!.messages.map {
                 Message(it.messageId, it.userId, it.username, it.content, it.timestamp)
             }
             Result.Success(messages)
         } else {
-            Result.Error(response.body()?.error ?: "Failed to load messages")
+            Result.Error("Failed to load messages: ${response.code()}")
         }
     } catch (e: Exception) {
         Result.Error(e.message ?: "Unknown error")
@@ -83,11 +108,12 @@ class ChatRepository @Inject constructor(
     }
 
     suspend fun editMessage(messageId: String, content: String): Result<Unit> = try {
-        val response = apiService.editMessage(EditMessageRequest(messageId, content))
+        val response = apiService.editMessage(messageId, EditMessageRequest(content))
         when (response.code()) {
-            200 -> Result.Success(Unit)
-            403 -> Result.Error("You can't edit this message")
-            400 -> Result.Error("Bad request")
+            200  -> Result.Success(Unit)
+            403  -> Result.Error("You can't edit this message")
+            400  -> Result.Error("Bad request")
+            401  -> Result.Error("Unauthorized")
             else -> Result.Error("Error: ${response.code()}")
         }
     } catch (e: Exception) {
@@ -95,11 +121,12 @@ class ChatRepository @Inject constructor(
     }
 
     suspend fun deleteMessage(messageId: String): Result<Unit> = try {
-        val response = apiService.deleteMessage(DeleteMessageRequest(messageId))
+        val response = apiService.deleteMessage(messageId)
         when (response.code()) {
-            200 -> Result.Success(Unit)
-            403 -> Result.Error("You can't delete this message")
-            400 -> Result.Error("Bad request")
+            200  -> Result.Success(Unit)
+            403  -> Result.Error("You can't delete this message")
+            400  -> Result.Error("Bad request")
+            401  -> Result.Error("Unauthorized")
             else -> Result.Error("Error: ${response.code()}")
         }
     } catch (e: Exception) {
@@ -107,7 +134,7 @@ class ChatRepository @Inject constructor(
     }
 
     suspend fun observeWebSocket(): Flow<WsEvent>? {
-        val token = tokenDataStore.getToken() ?: return null
+        val token = tokenDataStore.getAuthToken() ?: return null
         return webSocketManager.observe(token)
     }
 }

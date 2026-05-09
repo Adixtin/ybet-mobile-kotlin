@@ -1,6 +1,7 @@
 package com.chat.app.data.remote.websocket
 
 import android.util.Log
+import com.chat.app.data.local.ServerConfigDataStore
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
@@ -26,9 +27,9 @@ private const val MAX_RECONNECT_ATTEMPTS = 10L
 
 @Singleton
 class WebSocketManager @Inject constructor(
-    private val okHttpClient: OkHttpClient,
+    @Named("wsOkHttp") private val okHttpClient: OkHttpClient,
     private val gson: Gson,
-    @Named("wsBaseUrl") private val wsBaseUrl: String
+    private val serverConfig: ServerConfigDataStore
 ) {
     private var webSocket: WebSocket? = null
 
@@ -55,8 +56,10 @@ class WebSocketManager @Inject constructor(
         }
 
     private fun rawFlow(token: String): Flow<WsEvent> = callbackFlow {
+        val wsHost = serverConfig.getWsHost()
+        val wsUrl  = "ws://$wsHost/ws"
         val request = Request.Builder()
-            .url("$wsBaseUrl/ws")
+            .url(wsUrl)
             .addHeader("Authorization", "Bearer $token")
             .build()
 
@@ -99,7 +102,7 @@ class WebSocketManager @Inject constructor(
         }
 
         webSocket = okHttpClient.newWebSocket(request, listener)
-        Log.d(TAG, "WebSocket connecting to $wsBaseUrl/ws")
+        Log.d(TAG, "WebSocket connecting to $wsUrl")
 
         awaitClose {
             Log.d(TAG, "Flow closing — shutting down socket")

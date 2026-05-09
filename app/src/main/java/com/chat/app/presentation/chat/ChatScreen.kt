@@ -6,6 +6,8 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Logout
+import androidx.compose.material.icons.filled.DarkMode
+import androidx.compose.material.icons.filled.LightMode
 import androidx.compose.material.icons.filled.People
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.*
@@ -29,6 +31,8 @@ import kotlinx.coroutines.launch
 @Composable
 fun ChatScreen(
     onLogout: () -> Unit,
+    isDarkTheme: Boolean = true,
+    onToggleTheme: () -> Unit = {},
     viewModel: ChatViewModel = hiltViewModel()
 ) {
     val state by viewModel.uiState.collectAsState()
@@ -81,6 +85,12 @@ fun ChatScreen(
                 actions = {
                     IconButton(onClick = viewModel::loadHistory) {
                         Icon(Icons.Default.Refresh, "Refresh")
+                    }
+                    IconButton(onClick = onToggleTheme) {
+                        Icon(
+                            imageVector = if (isDarkTheme) Icons.Default.LightMode else Icons.Default.DarkMode,
+                            contentDescription = if (isDarkTheme) "Switch to light mode" else "Switch to dark mode"
+                        )
                     }
                     IconButton(onClick = { showUsersSheet = true }) {
                         BadgedBox(

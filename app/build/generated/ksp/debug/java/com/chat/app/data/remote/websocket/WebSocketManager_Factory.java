@@ -1,5 +1,6 @@
 package com.chat.app.data.remote.websocket;
 
+import com.chat.app.data.local.ServerConfigDataStore;
 import com.google.gson.Gson;
 import dagger.internal.DaggerGenerated;
 import dagger.internal.Factory;
@@ -28,27 +29,27 @@ public final class WebSocketManager_Factory implements Factory<WebSocketManager>
 
   private final Provider<Gson> gsonProvider;
 
-  private final Provider<String> wsBaseUrlProvider;
+  private final Provider<ServerConfigDataStore> serverConfigProvider;
 
   public WebSocketManager_Factory(Provider<OkHttpClient> okHttpClientProvider,
-      Provider<Gson> gsonProvider, Provider<String> wsBaseUrlProvider) {
+      Provider<Gson> gsonProvider, Provider<ServerConfigDataStore> serverConfigProvider) {
     this.okHttpClientProvider = okHttpClientProvider;
     this.gsonProvider = gsonProvider;
-    this.wsBaseUrlProvider = wsBaseUrlProvider;
+    this.serverConfigProvider = serverConfigProvider;
   }
 
   @Override
   public WebSocketManager get() {
-    return newInstance(okHttpClientProvider.get(), gsonProvider.get(), wsBaseUrlProvider.get());
+    return newInstance(okHttpClientProvider.get(), gsonProvider.get(), serverConfigProvider.get());
   }
 
   public static WebSocketManager_Factory create(Provider<OkHttpClient> okHttpClientProvider,
-      Provider<Gson> gsonProvider, Provider<String> wsBaseUrlProvider) {
-    return new WebSocketManager_Factory(okHttpClientProvider, gsonProvider, wsBaseUrlProvider);
+      Provider<Gson> gsonProvider, Provider<ServerConfigDataStore> serverConfigProvider) {
+    return new WebSocketManager_Factory(okHttpClientProvider, gsonProvider, serverConfigProvider);
   }
 
   public static WebSocketManager newInstance(OkHttpClient okHttpClient, Gson gson,
-      String wsBaseUrl) {
-    return new WebSocketManager(okHttpClient, gson, wsBaseUrl);
+      ServerConfigDataStore serverConfig) {
+    return new WebSocketManager(okHttpClient, gson, serverConfig);
   }
 }
