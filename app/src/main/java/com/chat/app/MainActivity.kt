@@ -25,13 +25,21 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             val isDark by themeDataStore.isDarkTheme.collectAsState(initial = true)
+            val fontSizeMultiplier by themeDataStore.fontSizeMultiplier.collectAsState(initial = 1.0f)
             val scope = rememberCoroutineScope()
 
-            ChatAppTheme(darkTheme = isDark) {
+            ChatAppTheme(
+                darkTheme = isDark,
+                fontSizeMultiplier = fontSizeMultiplier
+            ) {
                 ChatNavGraph(
                     isDarkTheme = isDark,
                     onToggleTheme = {
                         scope.launch { themeDataStore.setDarkTheme(!isDark) }
+                    },
+                    fontSizeMultiplier = fontSizeMultiplier,
+                    onFontSizeChange = { multiplier ->
+                        scope.launch { themeDataStore.setFontSizeMultiplier(multiplier) }
                     }
                 )
             }

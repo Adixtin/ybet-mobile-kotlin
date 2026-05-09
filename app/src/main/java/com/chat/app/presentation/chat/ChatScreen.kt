@@ -6,10 +6,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Logout
-import androidx.compose.material.icons.filled.DarkMode
-import androidx.compose.material.icons.filled.LightMode
-import androidx.compose.material.icons.filled.People
-import androidx.compose.material.icons.filled.Refresh
+import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -25,19 +22,18 @@ import com.chat.app.presentation.components.EditMessageBar
 import com.chat.app.presentation.components.MessageBubble
 import com.chat.app.presentation.components.MessageInputBar
 import com.chat.app.presentation.components.OnlineUsersSheet
-import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ChatScreen(
     onLogout: () -> Unit,
+    onNavigateToSettings: () -> Unit,
     isDarkTheme: Boolean = true,
     onToggleTheme: () -> Unit = {},
     viewModel: ChatViewModel = hiltViewModel()
 ) {
     val state by viewModel.uiState.collectAsState()
     val listState = rememberLazyListState()
-    val scope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
     var showUsersSheet by remember { mutableStateOf(false) }
 
@@ -91,6 +87,9 @@ fun ChatScreen(
                             imageVector = if (isDarkTheme) Icons.Default.LightMode else Icons.Default.DarkMode,
                             contentDescription = if (isDarkTheme) "Switch to light mode" else "Switch to dark mode"
                         )
+                    }
+                    IconButton(onClick = onNavigateToSettings) {
+                        Icon(Icons.Default.Settings, "Settings")
                     }
                     IconButton(onClick = { showUsersSheet = true }) {
                         BadgedBox(

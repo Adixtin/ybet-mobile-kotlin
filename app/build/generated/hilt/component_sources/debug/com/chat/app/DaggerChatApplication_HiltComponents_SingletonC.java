@@ -480,18 +480,18 @@ public final class DaggerChatApplication_HiltComponents_SingletonC {
     private static final class LazyClassKeyProvider {
       static String com_chat_app_presentation_serverconfig_ServerConfigViewModel = "com.chat.app.presentation.serverconfig.ServerConfigViewModel";
 
-      static String com_chat_app_presentation_chat_ChatViewModel = "com.chat.app.presentation.chat.ChatViewModel";
-
       static String com_chat_app_presentation_login_LoginViewModel = "com.chat.app.presentation.login.LoginViewModel";
+
+      static String com_chat_app_presentation_chat_ChatViewModel = "com.chat.app.presentation.chat.ChatViewModel";
 
       @KeepFieldType
       ServerConfigViewModel com_chat_app_presentation_serverconfig_ServerConfigViewModel2;
 
       @KeepFieldType
-      ChatViewModel com_chat_app_presentation_chat_ChatViewModel2;
+      LoginViewModel com_chat_app_presentation_login_LoginViewModel2;
 
       @KeepFieldType
-      LoginViewModel com_chat_app_presentation_login_LoginViewModel2;
+      ChatViewModel com_chat_app_presentation_chat_ChatViewModel2;
     }
 
     private static final class SwitchingProvider<T> implements Provider<T> {
