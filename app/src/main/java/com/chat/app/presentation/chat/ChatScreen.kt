@@ -29,6 +29,7 @@ fun ChatScreen(
     onLogout: () -> Unit,
     onNavigateToSettings: () -> Unit,
     isDarkTheme: Boolean = true,
+    isRoundedBubbles: Boolean = true,
     onToggleTheme: () -> Unit = {},
     viewModel: ChatViewModel = hiltViewModel()
 ) {
@@ -160,6 +161,7 @@ fun ChatScreen(
                         MessageBubble(
                             message = message,
                             isOwn = isOwn,
+                            isRounded = isRoundedBubbles,
                             onEditClick = { viewModel.startEdit(message) },
                             onDeleteClick = { viewModel.deleteMessage(message.messageId) }
                         )

@@ -1,6 +1,7 @@
 package com.chat.app.presentation.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -19,7 +20,11 @@ fun ChatNavGraph(
     isDarkTheme: Boolean = true,
     onToggleTheme: () -> Unit = {},
     fontSizeMultiplier: Float = 1.0f,
-    onFontSizeChange: (Float) -> Unit = {}
+    onFontSizeChange: (Float) -> Unit = {},
+    accentColor: Color = Color(0xFF2D5A8A),
+    onAccentColorChange: (Color) -> Unit = {},
+    isRoundedBubbles: Boolean = true,
+    onRoundedBubblesChange: (Boolean) -> Unit = {}
 ) {
     val navController = rememberNavController()
 
@@ -49,6 +54,7 @@ fun ChatNavGraph(
             ChatScreen(
                 isDarkTheme = isDarkTheme,
                 onToggleTheme = onToggleTheme,
+                isRoundedBubbles = isRoundedBubbles,
                 onNavigateToSettings = {
                     navController.navigate(ROUTE_SETTINGS)
                 },
@@ -64,6 +70,10 @@ fun ChatNavGraph(
             SettingsScreen(
                 fontSizeMultiplier = fontSizeMultiplier,
                 onFontSizeChange = onFontSizeChange,
+                accentColor = accentColor,
+                onAccentColorChange = onAccentColorChange,
+                isRoundedBubbles = isRoundedBubbles,
+                onRoundedBubblesChange = onRoundedBubblesChange,
                 onBack = { navController.popBackStack() }
             )
         }

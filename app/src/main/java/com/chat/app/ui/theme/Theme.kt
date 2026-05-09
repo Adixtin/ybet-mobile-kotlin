@@ -1,14 +1,16 @@
 package com.chat.app.ui.theme
 
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Typography
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.unit.sp
 
-private val DarkColorScheme = darkColorScheme(
+private val DarkColorSchemeBase = darkColorScheme(
     primary = Color(0xFF7C9CBF),
     onPrimary = Color(0xFF1A1A2E),
     primaryContainer = Color(0xFF2D4A6B),
@@ -24,7 +26,7 @@ private val DarkColorScheme = darkColorScheme(
     error = Color(0xFFCF6679),
 )
 
-private val LightColorScheme = lightColorScheme(
+private val LightColorSchemeBase = lightColorScheme(
     primary = Color(0xFF2D5A8A),
     onPrimary = Color(0xFFFFFFFF),
     primaryContainer = Color(0xFFD4E4F7),
@@ -44,8 +46,22 @@ private val LightColorScheme = lightColorScheme(
 fun ChatAppTheme(
     darkTheme: Boolean = true,
     fontSizeMultiplier: Float = 1.0f,
+    accentColor: Color? = null,
     content: @Composable () -> Unit
 ) {
+    val baseColorScheme = if (darkTheme) DarkColorSchemeBase else LightColorSchemeBase
+    
+    val colorScheme = if (accentColor != null) {
+        baseColorScheme.copy(
+            primary = accentColor,
+            // Simple adjustments for containers/secondary based on primary
+            primaryContainer = accentColor.copy(alpha = 0.2f),
+            secondary = accentColor.copy(alpha = 0.8f)
+        )
+    } else {
+        baseColorScheme
+    }
+
     val typography = Typography()
     val scaledTypography = Typography(
         displayLarge = typography.displayLarge.copy(fontSize = typography.displayLarge.fontSize * fontSizeMultiplier),
@@ -66,7 +82,7 @@ fun ChatAppTheme(
     )
 
     MaterialTheme(
-        colorScheme = if (darkTheme) DarkColorScheme else LightColorScheme,
+        colorScheme = colorScheme,
         typography = scaledTypography,
         content = content
     )

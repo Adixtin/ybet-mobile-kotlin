@@ -418,20 +418,20 @@ public final class DaggerChatApplication_HiltComponents_SingletonC {
 
     @IdentifierNameString
     private static final class LazyClassKeyProvider {
-      static String com_chat_app_presentation_login_LoginViewModel = "com.chat.app.presentation.login.LoginViewModel";
-
       static String com_chat_app_presentation_serverconfig_ServerConfigViewModel = "com.chat.app.presentation.serverconfig.ServerConfigViewModel";
 
       static String com_chat_app_presentation_chat_ChatViewModel = "com.chat.app.presentation.chat.ChatViewModel";
 
-      @KeepFieldType
-      LoginViewModel com_chat_app_presentation_login_LoginViewModel2;
+      static String com_chat_app_presentation_login_LoginViewModel = "com.chat.app.presentation.login.LoginViewModel";
 
       @KeepFieldType
       ServerConfigViewModel com_chat_app_presentation_serverconfig_ServerConfigViewModel2;
 
       @KeepFieldType
       ChatViewModel com_chat_app_presentation_chat_ChatViewModel2;
+
+      @KeepFieldType
+      LoginViewModel com_chat_app_presentation_login_LoginViewModel2;
     }
   }
 

@@ -2,7 +2,6 @@ package com.chat.app.presentation.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
@@ -12,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -23,6 +23,7 @@ import java.util.*
 fun MessageBubble(
     message: Message,
     isOwn: Boolean,
+    isRounded: Boolean = true,
     onEditClick: () -> Unit,
     onDeleteClick: () -> Unit
 ) {
@@ -36,10 +37,13 @@ fun MessageBubble(
     else
         MaterialTheme.colorScheme.onSurfaceVariant
 
-    val bubbleShape = if (isOwn)
+    val bubbleShape = if (!isRounded) {
+        RectangleShape
+    } else if (isOwn) {
         RoundedCornerShape(topStart = 16.dp, topEnd = 4.dp, bottomStart = 16.dp, bottomEnd = 16.dp)
-    else
+    } else {
         RoundedCornerShape(topStart = 4.dp, topEnd = 16.dp, bottomStart = 16.dp, bottomEnd = 16.dp)
+    }
 
     Box(
         modifier = Modifier.fillMaxWidth(),
